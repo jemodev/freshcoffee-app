@@ -1,8 +1,26 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import AuthLayout from "@/layouts/AuthLayout.astro";
 ---
 
-<Layout title="Inicio">
-    <h1>Welcome to FreshCoffee!</h1>
-    <p>Your one-stop shop for the freshest coffee beans.</p>
-</Layout>
+<AuthLayout title="Comenzar nueva orden">
+    <button
+        id="guest-login"
+        class="border border-amber-400 hover:bg-amber-400 text-amber-400 hover:text-white py-3 px-5 cursor-pointer rounded-lg mx-auto text-2xl uppercase font-black"
+    >
+        Presiona aquí</button
+    >
+</AuthLayout>
+
+<script>
+    import { actions } from "astro:actions";
+    import { navigate } from "astro:transitions/client";
+
+    const guestLoginButton = document.getElementById("guest-login");
+    if (guestLoginButton) {
+        guestLoginButton.addEventListener("click", async () => {
+            const { data, error } = await actions.auth.signInAsGuest();
+
+            if (data && !error) navigate("/order/coffee");
+        });
+    }
+</script>
