@@ -1,6 +1,7 @@
 ---
 import AdminOrdersLayout from "@/layouts/AdminOrdersLayout.astro";
 import { orderStatusOptions } from "@/components/admin/OrderStatusNav.astro";
+import { OrderList } from "@/components/admin/orders/OrderList";
 const { status } = Astro.params;
 
 const currentStatus = orderStatusOptions.find(
@@ -10,8 +11,5 @@ const displayStatus = currentStatus ? currentStatus.label : "desconocida";
 ---
 
 <AdminOrdersLayout title={`Administrar ordenes - ${status}`}>
-    <p>
-        Aquí puedes ver y gestionar todas las órdenes {displayStatus}. Haz clic
-        en cada orden para ver más detalles o actualizar su estado.
-    </p>
+    <OrderList client:only="react" status={currentStatus?.value!} />
 </AdminOrdersLayout>
