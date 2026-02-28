@@ -27,4 +27,11 @@ export const auth = {
             return true;
         },
     }),
+
+    signOut: defineAction({
+        handler: (_, ctx) => {
+            ctx.cookies.delete("FRESHCOOFEE_TOKEN", { path: "/" });
+            return true;
+        },
+    }),
 };

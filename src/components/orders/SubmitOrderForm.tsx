@@ -32,6 +32,7 @@ export const SubmitOrderForm = () => {
 
         if (data && !error) {
             toast.success(data.message);
+            await actions.auth.signOut();
 
             setTimeout(() => {
                 navigate("/");
