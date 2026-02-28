@@ -18,6 +18,10 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
 
     const { role } = user;
 
+    if (role === "administrator") {
+        return next();
+    }
+
     if (role === "freshcoffee_customer") {
         if (isAdminRoute) {
             ctx.cookies.delete("FRESHCOOFEE_TOKEN", {

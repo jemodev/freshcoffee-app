@@ -44,7 +44,21 @@ export const auth = {
         }),
         handler: async (input, ctx) => {
             // Implement regular sign-in logic here if needed
-            console.log(input);
+            const res = await fetch(import.meta.env.AUTH_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(input),
+            });
+            const data = await res.json();
+            ctx.cookies.set("FRESHCOOFEE_TOKEN", data.token, {
+                httpOnly: true,
+                sameSite: "strict",
+                maxAge: 60 * 60 * 24 * 7, // 1 week
+                path: "/",
+            });
+
             return true;
         },
     }),

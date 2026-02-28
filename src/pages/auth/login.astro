@@ -5,6 +5,12 @@ import { actions, isInputError } from "astro:actions";
 
 const result = Astro.getActionResult(actions.auth.signIn);
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+
+if (result?.data && !result.error) {
+    // Sign-in successful, you can redirect or show a success message
+    // For example, you can use Astro's redirect:
+    return Astro.redirect("/admin");
+}
 ---
 
 <AuthLayout title="Iniciar Sesión">
