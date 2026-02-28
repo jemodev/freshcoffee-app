@@ -62,10 +62,11 @@ export const orders = {
                 throw new Error(errorData.message || "Failed to create order");
             }
 
-            const order = await res.json();
-            console.log("Order created successfully:", order);
+            const { id }: { id: number } = await res.json();
 
-            return true;
+            return {
+                message: `Orden creada exitosamente con ID: ${id}`,
+            };
         },
     }),
 };

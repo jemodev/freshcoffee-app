@@ -1,5 +1,6 @@
 import { useOrderStore } from "@/store/order";
 import { actions, isActionError, isInputError } from "astro:actions";
+import { navigate } from "astro:transitions/client";
 import { toast } from "react-toastify";
 
 export const SubmitOrderForm = () => {
@@ -16,19 +17,27 @@ export const SubmitOrderForm = () => {
             name,
             orders,
         });
-        const actionError = isActionError(error) ? error.message : null;
 
+        const actionError = isActionError(error) ? error.message : null;
         if (actionError) {
             toast.error(actionError);
             return;
         }
 
         const inputErrors = isInputError(error) ? error.issues : [];
-
         if (error && inputErrors.length > 0) {
             inputErrors.forEach((err) => toast.error(err.message));
             return;
         }
+
+        if (data && !error) {
+            toast.success(data.message);
+
+            setTimeout(() => {
+                navigate("/");
+            }, 5000);
+        }
+
         form.reset();
     };
 
