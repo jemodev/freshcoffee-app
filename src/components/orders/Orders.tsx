@@ -1,12 +1,13 @@
 import { useOrderStore } from "@/store/order";
 import ProductDetails from "./ProductDetails";
 import { formatCurrency } from "@/utils";
+import { SubmitOrderForm } from "@/components/orders/SubmitOrderForm";
 
 export default function Orders() {
     const { orders } = useOrderStore();
     const totalToPay = orders.reduce(
         (total, order) => total + order.price * order.quantity,
-        0
+        0,
     );
 
     return (
@@ -31,6 +32,8 @@ export default function Orders() {
                     <h2 className="mt-5 text-2xl font-bold text-right">
                         Total a pagar: {formatCurrency(totalToPay)}
                     </h2>
+
+                    <SubmitOrderForm />
                 </>
             )}
         </>
