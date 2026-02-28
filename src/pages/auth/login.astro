@@ -1,10 +1,12 @@
 ---
 import ErrorMessage from "@/components/ui/ErrorMessage.astro";
 import AuthLayout from "@/layouts/AuthLayout.astro";
+import { isActionError } from "astro:actions";
 import { actions, isInputError } from "astro:actions";
 
 const result = Astro.getActionResult(actions.auth.signIn);
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+const actionError = isActionError(result?.error) ? result?.error.message : null;
 
 if (result?.data && !result.error) {
     // Sign-in successful, you can redirect or show a success message
@@ -14,6 +16,7 @@ if (result?.data && !result.error) {
 ---
 
 <AuthLayout title="Iniciar Sesión">
+    {actionError && <ErrorMessage>{actionError}</ErrorMessage>}
     <form
         action={actions.auth.signIn}
         method="POST"
