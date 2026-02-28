@@ -1,5 +1,7 @@
 import { defineAction } from "astro:actions";
 import { guestCredentials } from "@/auth/dal";
+import { z } from "astro:schema";
+import { nullToEmptyString } from "@/utils";
 
 export const auth = {
     signInAsGuest: defineAction({
@@ -24,6 +26,25 @@ export const auth = {
                 path: "/",
             });
 
+            return true;
+        },
+    }),
+
+    signIn: defineAction({
+        accept: "form",
+        input: z.object({
+            username: z.preprocess(
+                nullToEmptyString,
+                z.string().min(1, "Usuario es requerido"),
+            ),
+            password: z.preprocess(
+                nullToEmptyString,
+                z.string().min(1, "Contraseña es requerida"),
+            ),
+        }),
+        handler: async (input, ctx) => {
+            // Implement regular sign-in logic here if needed
+            console.log(input);
             return true;
         },
     }),

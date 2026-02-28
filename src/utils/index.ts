@@ -27,3 +27,7 @@ export const formatOrders = (orders: OrderItem[]) => {
 
     return contents;
 };
+
+export const nullToEmptyString = (arg: unknown) => {
+    return arg ?? "";
+};
