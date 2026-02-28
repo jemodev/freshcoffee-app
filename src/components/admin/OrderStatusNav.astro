@@ -1,0 +1,23 @@
+---
+import { currentPage } from "@/utils";
+export const orderStatusOptions = [
+    { label: "Pendientes", value: "pending" },
+    { label: "Preparando", value: "in_progress" },
+    { label: "Canceladas", value: "cancelled" },
+    { label: "Completadas", value: "completed" },
+];
+const current = Astro.url.pathname;
+---
+
+<nav class="flex gap-5">
+    {
+        orderStatusOptions.map((status) => (
+            <a
+                href={`/admin/orders/${status.value}`}
+                class={`${currentPage(`/admin/orders/${status.value}`, current) ? "bg-indigo-600" : "bg-indigo-400"}  hover:bg-indigo-500 transition-colors p-2 text-white rounded`}
+            >
+                {status.label}
+            </a>
+        ))
+    }
+</nav>

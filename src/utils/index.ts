@@ -31,3 +31,6 @@ export const formatOrders = (orders: OrderItem[]) => {
 export const nullToEmptyString = (arg: unknown) => {
     return arg ?? "";
 };
+
+export const currentPage = (href: string, category: string) =>
+    href === category;
