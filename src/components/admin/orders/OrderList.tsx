@@ -13,13 +13,9 @@ export const OrderList = ({ status }: Props) => {
         fetch(url)
             .then((res) => res.json())
             .then((data) => data);
-    const config = {};
+    const config = { refreshInterval: 60 * 1000 };
 
     const { data, error, isLoading, mutate } = useSWR<OrderContent[]>(url, fetcher, config);
-
-    console.log(data);
-    console.log(error);
-    console.log(isLoading);
 
     if (isLoading) return <div>Cargando...</div>;
     if (error) return <div>Error al cargar las ordenes</div>;
