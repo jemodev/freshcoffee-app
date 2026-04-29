@@ -28,7 +28,7 @@ export const OrderList = ({ status }: Props) => {
         ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 {data.map((order) => (
-                    <div key={order.id}><OrderCard order={order} /></div>
+                    <div key={order.id}><OrderCard order={order} mutate={mutate} /></div>
                 ))}
             </div>
         );

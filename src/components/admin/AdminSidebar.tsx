@@ -6,7 +6,7 @@ import {
 const navigation = [
     {
         name: "Ordenes",
-        href: "/admin/orders/pending",
+        href: "/admin/orders",
         icon: NewspaperIcon,
         bgColor: "bg-teal-400",
     },

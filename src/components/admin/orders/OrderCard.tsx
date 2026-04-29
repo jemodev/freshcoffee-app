@@ -2,19 +2,25 @@ import type { OrderContent } from "@/types";
 import { formatCurrency } from "@/utils";
 import { orderStatusOptions } from "@/utils/constants";
 import { actions } from "astro:actions";
+import { toast } from "react-toastify";
+import type { KeyedMutator } from "swr";
 
 type Props = {
     order: OrderContent;
+    mutate: KeyedMutator<OrderContent[]>;
 };
 
-export const OrderCard = ({ order }: Props) => {
+export const OrderCard = ({ order, mutate }: Props) => {
     const handleChangeStatus = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
         const status = e.target.value;
 
-        console.log(order.id, status);
+        const { data, error } = await actions.orders.updateStatus({ id: order.id, status });
 
-        await actions.orders.updateStatus({ id: order.id, status });
+        if (data && !error) {
+            toast.success(data.message);
+            mutate();
+        }
     };
 
     return <div className="p-5 shadow-lg space-y-5 border border-gray-200 ">

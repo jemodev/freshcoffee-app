@@ -95,7 +95,7 @@ export const orders = {
             }
 
             return {
-                message: `Orden actualizada exitosamente con ID: ${input.id}`,
+                message: "Orden actualizada",
             };
         },
     }),
