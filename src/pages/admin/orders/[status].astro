@@ -1,7 +1,7 @@
 ---
 import AdminOrdersLayout from "@/layouts/AdminOrdersLayout.astro";
-import { orderStatusOptions } from "@/components/admin/OrderStatusNav.astro";
 import { OrderList } from "@/components/admin/orders/OrderList";
+import { orderStatusOptions } from "@/utils/constants";
 const { status } = Astro.params;
 
 const currentStatus = orderStatusOptions.find(

@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z } from "astro/zod";
 
 const ImageSchema = z.object({
     url: z.string().url(),
@@ -93,3 +93,15 @@ export const OrderItemSchema = SelectedProductSchema.extend({
     ),
 });
 export type OrderItem = z.infer<typeof OrderItemSchema>;
+
+export const OrderContentSchema = z.object({
+    id: z.number(),
+    title: z.string(),
+    name: z.string(),
+    contents: z.string(),
+    status: z.string(),
+    total: z.number(),
+});
+export type OrderContent = z.infer<typeof OrderContentSchema>;
+
+
