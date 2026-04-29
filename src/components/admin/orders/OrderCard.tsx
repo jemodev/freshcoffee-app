@@ -1,12 +1,22 @@
 import type { OrderContent } from "@/types";
 import { formatCurrency } from "@/utils";
 import { orderStatusOptions } from "@/utils/constants";
+import { actions } from "astro:actions";
 
 type Props = {
     order: OrderContent;
 };
 
 export const OrderCard = ({ order }: Props) => {
+    const handleChangeStatus = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        e.preventDefault();
+        const status = e.target.value;
+
+        console.log(order.id, status);
+
+        await actions.orders.updateStatus({ id: order.id, status });
+    };
+
     return <div className="p-5 shadow-lg space-y-5 border border-gray-200 ">
         <div className='text-sm grid grid-cols-2 justify-between text-gray-600'>
             <h2>ID Orden: <span className='font-black'>{order.id}</span></h2>
@@ -17,7 +27,7 @@ export const OrderCard = ({ order }: Props) => {
             <div className="px-4" dangerouslySetInnerHTML={{ __html: order.contents }}></div>
         </div>
 
-        <select onChange={() => { }} value={order.status} className='border border-gray-300 w-full p-2 text-center'>
+        <select onChange={handleChangeStatus} value={order.status} className='border border-gray-300 w-full p-2 text-center'>
             {orderStatusOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                     {option.label}

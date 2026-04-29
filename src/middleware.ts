@@ -5,8 +5,9 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
     const { pathname } = ctx.url;
     const isAdminRoute = pathname.startsWith("/admin");
     const isOrderRoute = pathname.startsWith("/order");
+    const isOrderActionRoute = pathname.startsWith("/_actions/orders");
 
-    const isProtectedRoute = isAdminRoute || isOrderRoute;
+    const isProtectedRoute = isAdminRoute || isOrderRoute || isOrderActionRoute;
 
     if (!isProtectedRoute) return next();
 
@@ -15,6 +16,8 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
     const { user } = await verifySession(token);
 
     if (!user) return Response.redirect(new URL("/", ctx.url), 302);
+
+    ctx.locals.user = user;
 
     const { role } = user;
 
