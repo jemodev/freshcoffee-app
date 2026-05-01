@@ -100,8 +100,8 @@ export const OrderCard = ({ order, mutate }: Props) => {
                         >
                             {option.value === 'pending' && <img src={Clock.src} className="size-4" alt="Pendiente" />}
                             {option.value === 'in_progress' && <img src={Coffee.src} className="size-4" alt="En progreso" />}
-                            {option.value === 'cancelled' && <img src={XCircle.src} className="size-4" alt="Cancelado" />}
                             {option.value === 'completed' && <img src={CheckCircle.src} className="size-4" alt="Completado" />}
+                            {option.value === 'cancelled' && <img src={XCircle.src} className="size-4" alt="Cancelado" />}
                         </button>
                     )
                 })}
