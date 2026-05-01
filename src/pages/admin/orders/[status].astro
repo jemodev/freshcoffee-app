@@ -10,6 +10,6 @@ const currentStatus = orderStatusOptions.find(
 const displayStatus = currentStatus ? currentStatus.label : "desconocida";
 ---
 
-<AdminOrdersLayout title={`Administrar ordenes - ${status}`}>
+<AdminOrdersLayout title={`Administrar ordenes - ${displayStatus}`}>
     <OrderList client:only="react" status={currentStatus?.value!} />
 </AdminOrdersLayout>

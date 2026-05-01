@@ -2,6 +2,13 @@
 import { currentPage } from "@/utils";
 import { orderStatusOptions } from "@/utils/constants";
 const current = Astro.url.pathname;
+
+const statusConfigs: Record<string, string> = {
+    pending: "bg-amber-500 text-white border-amber-200 hover:bg-amber-600",
+    in_progress: "bg-blue-500 text-white border-blue-200 hover:bg-blue-600",
+    completed: "bg-green-500 text-white border-green-200 hover:bg-green-600",
+    cancelled: "bg-red-500 text-white border-red-200 hover:bg-red-600",
+};
 ---
 
 <nav class="flex gap-5">
@@ -9,7 +16,7 @@ const current = Astro.url.pathname;
         orderStatusOptions.map((status) => (
             <a
                 href={`/admin/orders/${status.value}`}
-                class={`${currentPage(`/admin/orders/${status.value}`, current) ? "bg-indigo-600" : "bg-indigo-400"}  hover:bg-indigo-500 transition-colors p-2 text-white rounded`}
+                class={`${currentPage(`/admin/orders/${status.value}`, current) ? statusConfigs[status.value] : "bg-transparent border-slate-200 text-slate-400"} flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors border`}
             >
                 {status.label}
             </a>
