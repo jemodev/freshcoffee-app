@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Logo from "@/assets/logo.svg";
+import { PickupDisplay } from "@/components/orders/PickupDisplay";
 
 const title = "Últimas ordenes listas";
 ---
@@ -14,6 +15,8 @@ const title = "Últimas ordenes listas";
                 {title}
             </h1>
             <Logo />
+
+            <PickupDisplay client:only="react" />
         </div>
     </main>
 </Layout>
